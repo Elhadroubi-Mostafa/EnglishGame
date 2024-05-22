@@ -1,0 +1,72 @@
+{
+  "animals":[
+    {
+      "image": "./animalImg/cat.png",
+      "name": "cat"
+    },
+    {
+      "image": "./animalImg/dog.png",
+      "name": "dog"
+    },
+    {
+      "image": "/animalImg/elephant.png",
+      "name": "elephant"
+    },
+    {
+      "image": "./animalImg/fox.png",
+      "name": "fox"
+    },
+    {
+      "image": "./animalImg/frog.png",
+      "name": "frog"
+    },
+    {
+      "image": "./animalImg/horse.png",
+      "name": "horse"
+    },
+    {
+      "image": "./animalImg/kangaroo.png",
+      "name": "kangaroo"
+    },
+    {
+      "image": "./animalImg/lion.png",
+      "name": "lion"
+    },
+    {
+      "image": "./animalImg/monkey.png",
+      "name": "monkey"
+    },
+    {
+      "image":"./animalImg/mouse.png",
+      "name": "mouse"
+    },
+    {
+      "image": "./animalImg/panda.png",
+      "name": "panda"
+    },
+    {
+      "image": "./animalImg/rabbit.png",
+      "name": "rabbit"
+    },
+    {
+      "image": "./animalImg/sheep.png",
+      "name": "sheep"
+    },
+    {
+      "image": "./animalImg/squirrel.png",
+      "name": "squirrel"
+    },
+    {
+      "image": "./animalImg/turtle.png",
+      "name": "turtle"
+    },
+    {
+      "image": "./animalImg/whale.png",
+      "name": "whale"
+    },
+    {
+      "image":"./animalImg/zebra.png",
+      "name": "zebra"
+    }
+  ]
+}

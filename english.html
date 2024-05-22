@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn English</title>
+  <link rel="stylesheet" href="english.css">
+</head>
+<body>
+  <div class="container">
+    <div class="chance-score">
+      <div class="chance">Chance: <span id="chance">5</span></div>
+      <div class="score">Score: <span id="score">0</span></div>
+    </div>
+    <div class="questions">Choose the right answer:</div>
+    <div class="images"><img src="/animalImg/cat.png" alt=""></div>
+    <div class="answer"><span>---------</span></div>
+    <div class="choices">
+      <div class="choice">Cat</div>
+      <div class="choice">Dog</div>
+      <div class="choice">rabit</div>
+    </div>
+  </div>
+  <div class="btn">
+    <button>Next</button>
+  </div>
+  <script>
+    let images = document.querySelector('.images img');
+    let answer = document.querySelector('.answer span');
+    let choice = document.querySelectorAll('.choice');
+    let scores = document.querySelector('.score');
+    let scoreId = document.getElementById('score');
+    let chanceId = document.getElementById('chance')
+    let chances = document.querySelector('.chance');
+    let btn = document.querySelector('.btn button');
+    let chance = 5;
+    let score = 0;
+    // let count = 0;
+    let name = '';
+    let choices = [];
+    let images_array = [];
+
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function(){
+      const data = JSON.parse(xmlhttp.responseText);
+      console.log(data);
+      GetImage();
+      choice.forEach(animal => {
+      animal.addEventListener('click', function(ev){
+        if(name == this.textContent){ 
+          answer.classList.add('win');
+          answer.innerHTML = animal.innerHTML;
+          score++;
+          scoreId.innerHTML =  score;
+          btn.innerHTML = 'Next';
+          btn.parentElement.style.display = 'flex';
+        }
+        else if(name != this.textContent){
+          answer.classList.add('lose');//
+          answer.innerHTML = animal.textContent;//
+          chance--;
+          chanceId.innerHTML = chance;
+          btn.innerHTML = 'TryAgain';//
+          btn.parentElement.style.display = 'flex';//
+          btn.style.background = 'red';//
+        }
+        if(chance == 0){
+          getButton('GameOver', 'red')
+        }
+      })
+    })
+    btn.addEventListener('click', function(){
+      if(btn.textContent == 'Next'){
+        answer.classList.remove('win');
+        btn.parentElement.style.display = 'none';
+        answer.innerHTML = '-------';
+        GetImage();
+        if(images_array.length == 17){
+          getButton('the game is done', 'green');
+          setTimeout(() => location.reload(), 5000);
+        }
+
+      }
+      else if(btn.textContent == 'TryAgain'){
+        answer.classList.remove('lose');
+        btn.parentElement.style.display = 'none';
+        answer.innerHTML = '-------';
+        choices.sort(() => 0.5 - Math.random());
+        for(let i = 0; i < choices.length; i++){
+        choice[i].innerHTML = choices[i];
+        } 
+      }
+    })
+    function GetImage(){
+      for(let i = 0; i < 200; i++){
+        let random = Math.floor(Math.random() * data.animals.length);
+        if(!images_array.includes(data.animals[random].image)){
+          images.src = data.animals[random].image;
+          images_array.push(data.animals[random].image);
+          name = data.animals[random].name;
+          choices = [];
+          choices.push(data.animals[random].name);
+          for(let i = 0; i < 10; i++){
+            random = Math.floor(Math.random() * data.animals.length);
+            if(!choices.includes(data.animals[random].name)){
+              choices.push(data.animals[random].name)
+              if(choices.length == 3){
+                break;
+              }
+            } 
+          }
+          choices.sort(() => 0.5 - Math.random())
+          for(let i = 0; i < choices.length; i++){
+            choice[i].innerHTML = choices[i];
+          }
+          break;
+        }
+      }
+    }
+    function getButton(msg, background){
+      btn.style.display = 'none';
+        let p = document.createElement('p');
+        p.style.cssText = `padding: 10px; box-shadow:5px 5px 10px rgb(177, 178, 177),
+        -5px -5px 10px rgb(177, 178, 177);border-radius: 10px; background: ${background};
+        font-size: 20px;`;
+        p.innerText = msg;
+        btn.parentElement.appendChild(p);
+    }
+  }
+    xmlhttp.open('GET', 'english.json');
+    xmlhttp.send();
+  </script>
+</body>
+</html>
